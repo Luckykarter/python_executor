@@ -4,8 +4,7 @@ services:
     build:
       context: .
     command: gunicorn executor.wsgi --workers=9 --log-file=- --log-level=debug --keep-alive=600 --timeout=600 --bind 0.0.0.0:8000
-    depends_on:
-      - mysql-executor
+
     ports:
       - 8005:8000
     volumes:
