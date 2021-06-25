@@ -35,7 +35,7 @@ def execute(request):
     stream = os.popen(f'docker run --rm image_{username} python /app/code.py')
     output = stream.read()
 
-    return Response(output)
+    return Response(output, content_type='text/plain')
 
 def test_execute(request):
     pass
