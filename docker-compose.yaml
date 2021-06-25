@@ -10,6 +10,7 @@ services:
     volumes:
       - static_volume:/executor/static
       - media_volume:/executor/media
+      - /var/run/docker.sock:/var/run/docker.sock
 
   nginx:
     build: ./nginx
