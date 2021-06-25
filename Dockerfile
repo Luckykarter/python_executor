@@ -1,7 +1,7 @@
 FROM python:3.9-slim as executor
 ENV PYTHONUNBUFFERED=1
 RUN sed -Ei 's/main$/main contrib/' /etc/apt/sources.list
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git default-libmysqlclient-dev
 RUN apt-get install -y gcc g++
 
 COPY requirements.txt /tmp/
