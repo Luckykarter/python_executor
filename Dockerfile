@@ -11,9 +11,9 @@ RUN mkdir /templates
 
 ENV ENVIRONMENT=docker
 
-COPY . /app
+COPY . /executor
 
-WORKDIR /app
+WORKDIR /executor
 
 #RUN python manage.py makemigrations
 #RUN python manage.py migrate

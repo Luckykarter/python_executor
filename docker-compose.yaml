@@ -5,34 +5,22 @@ services:
       context: .
     command: gunicorn executor.wsgi --workers=9 --log-file=- --log-level=debug --keep-alive=600 --timeout=600 --bind 0.0.0.0:8000
     depends_on:
-      - mysql
+      - mysql-executor
     ports:
       - 8005:8000
     volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
+      - static_volume:/executor/static
+      - media_volume:/executor/media
 
   nginx:
     build: ./nginx
     volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
+      - static_volume:/executor/static
+      - media_volume:/executor/media
     ports:
-      - 84:80
+      - 81:80
     depends_on:
       - executor
-
-
-  mysql:
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
-    container_name: mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
-    volumes:
-      - /etc/mysql.cnf:/app/config/mysql.cnf
-      - /var/lib/mysql:/var/lib/mysql
 
 
 volumes:
