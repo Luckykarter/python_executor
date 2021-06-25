@@ -32,7 +32,7 @@ def execute(request):
     build_cmd = f"docker build -t image_{username} {folder_name}"
     os.system(build_cmd)
 
-    stream = os.popen(f'docker run --rm image_{username} /app/code.py')
+    stream = os.popen(f'docker run --rm image_{username} python /app/code.py')
     output = stream.read()
 
     return Response(output)
