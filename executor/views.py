@@ -1,5 +1,6 @@
 import os
 import shutil
+import subprocess
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -32,10 +33,12 @@ def execute(request):
     build_cmd = f"docker build -t image_{username} {folder_name}"
     os.system(build_cmd)
 
-    stream = os.popen(f'docker run --rm image_{username} python /app/code.py')
-    output = stream.read()
+    process = subprocess.Popen(['docker', f'run --rm image_{username}', 'python /app/code.py'],
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+    stdout, stderr = process.communicate()
 
-    return Response(output, content_type='text/plain')
+    return Response({'stdout': stdout, 'stderr': stderr}, content_type='application/json')
 
 def test_execute(request):
     pass
