@@ -33,7 +33,7 @@ def execute(request):
     build_cmd = f"docker build -t image_{username} {folder_name}"
     os.system(build_cmd)
 
-    process = subprocess.Popen(['docker', f'run --rm image_{username}', 'python /app/code.py'],
+    process = subprocess.Popen(['docker', 'run', '--rm', f'image_{username}', 'python /app/code.py'],
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
